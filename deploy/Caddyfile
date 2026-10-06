@@ -1,0 +1,17 @@
+api-test.notepidia.com {
+    encode zstd gzip
+    reverse_proxy omymind-api:3000
+}
+
+auth-test.notepidia.com {
+    encode zstd gzip
+    reverse_proxy notepidia-identity-api:3001
+}
+
+omymind-test.notepidia.com {
+    encode zstd gzip
+    root * /srv/omymind-test
+    try_files {path} {path}.html {path}/index.html
+    header X-Robots-Tag "noindex, nofollow"
+    file_server
+}
